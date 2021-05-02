@@ -1,0 +1,14 @@
+package dut.udn.watchshop.entity;
+
+import java.util.List;
+
+
+abstract class Product {
+	protected int id;
+	protected String name;
+	protected int price;
+	protected String image;
+	protected int amount;
+	protected List<Feedback> feedbacks;
+	
+}

@@ -1,0 +1,22 @@
+/**
+ * 
+ */
+package dut.udn.watchshop.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import dut.udn.watchshop.entity.AlbertType;
+import dut.udn.watchshop.entity.Watch;
+
+/**
+ * @author Admin
+ *
+ */
+@Repository
+public interface WatchRepository extends JpaRepository<Watch, Integer>{
+	List<Watch> findByAlbertType(AlbertType albertType);
+	
+}

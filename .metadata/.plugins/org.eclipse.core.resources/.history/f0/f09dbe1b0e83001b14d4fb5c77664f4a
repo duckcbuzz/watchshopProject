@@ -1,0 +1,22 @@
+package dut.udn.watchshop.entity;
+
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+
+import lombok.Data;
+
+@Entity
+@Data
+@DiscriminatorColumn(name="REF_TYPE")
+public class Watch extends Product{
+	private Brand brand;
+	private boolean sex;
+	private String color;
+	private float size;
+	private String albert;
+	public static void main(String[] args) {
+		Watch obj = new Watch();
+		obj.price = 1;
+		
+	}
+}

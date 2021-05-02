@@ -1,0 +1,31 @@
+package dut.udn.watchshop.entity;
+
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "brand")
+public class Brand {
+	@Id
+	@GeneratedValue
+	private int id;
+	private String name;
+	@JsonBackReference
+	@OneToMany(mappedBy = "brand")
+	private List<Watch> product;
+
+	
+}

@@ -1,0 +1,84 @@
+package dut.udn.watchshop.entity;
+
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+
+@Entity
+@Table(name = "watch")
+@NoArgsConstructor
+public class Watch extends Product {
+	private Brand brand;
+	private boolean sex;
+	private WatchColor color;
+	private Size size;
+	private AlbertType albertType;
+
+	public static void main(String[] args) {
+		Watch obj = new Watch();
+		obj.price = 1;
+		
+		
+	}
+	
+	
+	public Brand getBrand() {
+		return brand;
+	}
+
+	public void setBrand(Brand brand) {
+		this.brand = brand;
+	}
+
+	public boolean isSex() {
+		return sex;
+	}
+
+	public void setSex(boolean sex) {
+		this.sex = sex;
+	}
+
+	public WatchColor getColor() {
+		return color;
+	}
+
+	public void setColor(WatchColor color) {
+		this.color = color;
+	}
+
+	public Size getSize() {
+		return size;
+	}
+
+	public void setSize(Size size) {
+		this.size = size;
+	}
+
+	public AlbertType getAlbertType() {
+		return albertType;
+	}
+
+	public void setAlbertType(AlbertType albertType) {
+		this.albertType = albertType;
+	}
+
+
+	public Watch(int id, String name, int price, String image, int amount, List<Feedback> feedbacks,Brand brand, boolean sex, WatchColor color, Size size, AlbertType albertType) {
+		super(id,name,price,image,amount,feedbacks);
+		this.brand = brand;
+		this.sex = sex;
+		this.color = color;
+		this.size = size;
+		this.albertType = albertType;
+	}
+
+
+
+
+
+}

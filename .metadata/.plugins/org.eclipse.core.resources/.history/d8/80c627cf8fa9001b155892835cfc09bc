@@ -1,0 +1,11 @@
+package dut.udn.watchshop.service;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface BrandService {
+	List<BrandService> findAll();
+	Optional<BrandService> findById();
+	void save (BrandService brand);
+	void deleteById (BrandService brand);
+}

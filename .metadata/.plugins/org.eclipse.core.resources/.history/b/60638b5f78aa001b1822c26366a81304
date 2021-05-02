@@ -1,0 +1,43 @@
+package dut.udn.watchshop.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import dut.udn.watchshop.bean.ResultBean;
+import dut.udn.watchshop.repository.AlbertTypeRepository;
+import dut.udn.watchshop.util.Constants;
+
+@RestController
+@RequestMapping("api/albert")
+public class AlbertController {
+	@Autowired
+	private AlbertTypeRepository AlbertTypeRepository;
+	@GetMapping(value ="/",produces = { MediaType.APPLICATION_JSON_VALUE })
+	  public  ResponseEntity<ResultBean> getAllAlbert( ) {
+		  ResultBean resultBean = null;
+	      try {
+	          resultBean = new ResultBean(AlbertTypeRepository.findAll(),Constants.STATUS_OK, Constants.MSG_OK);
+	      } catch (Exception e) {
+	          resultBean = new ResultBean(Constants.STATUS_BAD_REQUEST, e.getMessage());
+	          return new ResponseEntity<ResultBean>(resultBean, HttpStatus.BAD_REQUEST);
+	      }
+	      return new ResponseEntity<ResultBean>(resultBean, HttpStatus.OK);
+	  };
+	  @GetMapping(value ="/{id}",produces = { MediaType.APPLICATION_JSON_VALUE })
+	  public  ResponseEntity<ResultBean> getAllAlbert(@PathVariable Integer id ) {
+		  ResultBean resultBean = null;
+	      try {
+	          resultBean = new ResultBean(AlbertTypeRepository.findById(id),Constants.STATUS_OK, Constants.MSG_OK);
+	      } catch (Exception e) {
+	          resultBean = new ResultBean(Constants.STATUS_BAD_REQUEST, e.getMessage());
+	          return new ResponseEntity<ResultBean>(resultBean, HttpStatus.BAD_REQUEST);
+	      }
+	      return new ResponseEntity<ResultBean>(resultBean, HttpStatus.OK);
+	  };
+}

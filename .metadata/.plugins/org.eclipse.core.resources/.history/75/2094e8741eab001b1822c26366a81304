@@ -1,0 +1,8 @@
+package dut.udn.watchshop.controller;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class WatchController {
+
+}

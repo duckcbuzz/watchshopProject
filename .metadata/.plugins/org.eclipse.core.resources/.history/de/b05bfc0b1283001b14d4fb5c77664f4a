@@ -1,0 +1,18 @@
+package dut.udn.watchshop.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.Data;
+
+@Entity
+@Data
+@Table(name = "brand")
+public class Brand {
+	@Id
+	@GeneratedValue
+	private int id;
+	private String name;
+}

@@ -1,0 +1,13 @@
+package dut.udn.watchshop.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import dut.udn.watchshop.entity.AlbertType;
+
+public interface CartDetail {
+	List<Cart> findAll();
+	Optional<AlbertType> findById();
+	void save (AlbertType albertType);
+	void deleteById (AlbertType albertType);
+}

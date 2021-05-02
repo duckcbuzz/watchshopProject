@@ -1,0 +1,5 @@
+package dut.udn.watchshop.entity;
+
+public class Product {
+
+}

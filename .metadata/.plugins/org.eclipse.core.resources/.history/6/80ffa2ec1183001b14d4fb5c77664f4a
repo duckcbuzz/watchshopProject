@@ -1,0 +1,14 @@
+package dut.udn.watchshop.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import lombok.Data;
+
+@Entity
+@Data
+@Table(name = "type_alert")
+public class AlbertType {
+	private int id;
+	private String name; 
+}

@@ -1,0 +1,46 @@
+package dut.udn.watchshop.entity;
+
+import java.math.BigInteger;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+public class Product {
+	@Id
+	@GeneratedValue
+	private int id;
+	private String name;
+	private BigInteger price;
+	private String image;
+	private int amount;
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Feedback> feedbacks;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_brand")
+	private Brand brand;
+	private boolean sex;
+	@ManyToOne
+	@JoinColumn(name = "id_color")
+	private Color color;
+	private String size;
+	@ManyToOne
+	@JoinColumn(name = "id_albert")
+	private AlbertType albertType;
+		
+}

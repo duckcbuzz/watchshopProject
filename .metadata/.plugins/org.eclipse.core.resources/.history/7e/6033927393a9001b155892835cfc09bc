@@ -1,0 +1,23 @@
+package dut.udn.watchshop.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import dut.udn.watchshop.entity.Watch;
+import dut.udn.watchshop.repository.WatchRepository;
+
+@RestController
+@RequestMapping("api/v1")
+public class BaseController {
+  @Autowired
+  private WatchRepository productRepository;
+  
+  @GetMapping("/")
+  public List<Watch> getListProduct() {
+    return productRepository.findAll();
+  }
+}

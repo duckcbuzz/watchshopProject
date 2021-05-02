@@ -1,0 +1,21 @@
+package dut.udn.watchshop.entity;
+
+import java.util.List;
+
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+import lombok.Data;
+
+@MappedSuperclass
+@Data
+abstract class Product {
+	@Id
+	protected int id;
+	protected String name;
+	protected int price;
+	protected String image;
+	protected int amount;
+	protected List<Feedback> feedbacks;
+	
+}

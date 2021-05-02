@@ -1,0 +1,47 @@
+package dut.udn.watchshop.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "watch")
+public class Watch {
+	@Id
+	@GeneratedValue
+	private Integer id;
+	private String name;
+	private Integer price;
+	private String image;
+	private Integer amount;
+	private boolean sex;
+	private String size;
+	@ManyToOne
+	@JoinColumn(name = "id_brand")
+	private Brand brand;
+	@ManyToOne
+	@JoinColumn(name = "id_color")
+	private Color color;
+	@ManyToOne
+	@JoinColumn(name = "id_albert")
+	private AlbertType albertType;
+	@ManyToOne
+	@JoinColumn(name = "id_clockwork")
+	private ClockWork clockwork;
+	@ManyToOne
+	@JoinColumn(name = "id_color_albert")
+	private Color colorAlbert;
+}

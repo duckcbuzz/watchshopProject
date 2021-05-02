@@ -1,0 +1,24 @@
+package dut.udn.watchshop.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "albert")
+public class Albert extends Product {
+	private AlbertType albertType;
+
+	public AlbertType getAlbertType() {
+		return albertType;
+	}
+
+	public void setAlbertType(AlbertType albertType) {
+		this.albertType = albertType;
+	}
+
+}

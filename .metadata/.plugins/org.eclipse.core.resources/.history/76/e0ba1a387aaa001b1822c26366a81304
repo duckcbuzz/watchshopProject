@@ -1,0 +1,19 @@
+package dut.udn.watchshop.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import dut.udn.watchshop.entity.Watch;
+
+public interface WatchService {
+	List<Watch> findAll();
+	List<Watch> findByAlbert(int id);
+	List<Watch> findByColor(int id);
+	List<Watch> findByBrand(int id);
+	List<Watch> findByAlbertColor(int id);
+	List<Watch> findByClockWatch(int id);
+	Optional<Watch> findById(int id);
+	void save (Watch watch);
+	void deleteById (int id);
+	
+}

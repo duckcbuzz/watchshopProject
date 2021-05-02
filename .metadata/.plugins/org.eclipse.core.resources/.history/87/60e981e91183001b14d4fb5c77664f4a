@@ -1,0 +1,20 @@
+package dut.udn.watchshop.entity;
+
+import lombok.Data;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "color_watch")
+public class WatchColor {
+	@Id
+	@GeneratedValue
+	private int id;
+	private String color;
+}
