@@ -49,7 +49,7 @@ public class BrandController {
 	      }
 	      return new ResponseEntity<ResultBean>(resultBean, HttpStatus.OK);
 	  };
-	  @PostMapping(value = "/add",produces = { MediaType.APPLICATION_JSON_VALUE })
+	  @PostMapping(value = "/",produces = { MediaType.APPLICATION_JSON_VALUE })
 	  public ResponseEntity<ResultBean> addBrand(@RequestBody String json){
 		  ResultBean resultBean = null;
 	        try {

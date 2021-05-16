@@ -146,7 +146,7 @@ public class OrderController {
 			resultBean = new ResultBean(Constants.STATUS_BAD_REQUEST, e.getMessage());
 			return new ResponseEntity<ResultBean>(resultBean, HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<ResultBean>(resultBean, HttpStatus.OK);
+		return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("https://fullstackdeveloper.guru")).build();
 	}
 	@GetMapping(value = URL_PAYPAL_CANCEL, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Void> cancelPay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {

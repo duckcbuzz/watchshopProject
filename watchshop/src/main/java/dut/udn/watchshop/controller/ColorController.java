@@ -53,7 +53,7 @@ public class ColorController {
 	  public ResponseEntity<ResultBean> addColor(@RequestBody String json){
 		  ResultBean resultBean = null;
 	        try {
-	            colorService.save(new Color(null, new JSONObject(json).getString("color"), null, null));
+	            colorService.save(new Color(null, new JSONObject(json).getString("name"), null, null));
 	            resultBean = new ResultBean(Constants.STATUS_201, Constants.MSG_OK);
 	        } catch (Exception e) {
 	            resultBean = new ResultBean(Constants.STATUS_BAD_REQUEST, e.getMessage());
@@ -77,6 +77,7 @@ public class ColorController {
 	  public ResponseEntity<ResultBean> updatecolor(@PathVariable Integer id,@RequestBody String json){
 		  ResultBean resultBean = null;
 	        try {
+	        	colorService.save(new Color(id, new JSONObject(json).getString("name"), null, null));
 	            resultBean =  new ResultBean(Constants.STATUS_OK, Constants.MSG_OK);
 	        } catch (Exception e) {
 	            resultBean = new ResultBean(Constants.STATUS_BAD_REQUEST, e.getMessage());

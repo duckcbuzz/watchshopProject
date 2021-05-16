@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,12 +23,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import dut.udn.watchshop.bean.AuthenTokenResponse;
 import dut.udn.watchshop.bean.Login;
 import dut.udn.watchshop.bean.ResultBean;
-import dut.udn.watchshop.config.JwtTokenProvider;
 import dut.udn.watchshop.entity.User;
-import dut.udn.watchshop.service.CustomUserDetailService;
+import dut.udn.watchshop.security.domain.JwtAuthenticationResponse;
+import dut.udn.watchshop.security.service.JwtTokenUtil;
+import dut.udn.watchshop.security.service.JwtUserDetailsService;
 import dut.udn.watchshop.service.UserService;
 import dut.udn.watchshop.util.Constants;
 
@@ -40,10 +39,10 @@ public class UserController {
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	private JwtTokenProvider tokenProvider;
+	private JwtTokenUtil tokenProvider;
 
 	@Autowired
-	private CustomUserDetailService customUserDetailService;
+	private JwtUserDetailsService customUserDetailService;
 
 	@Autowired
 	private UserService userService;
@@ -61,7 +60,7 @@ public class UserController {
 		return new ResponseEntity<ResultBean>(resultBean, HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	@GetMapping(value = "/id", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ResultBean> getUserById(@RequestParam Integer id) {
 		ResultBean resultBean = null;
@@ -74,7 +73,7 @@ public class UserController {
 		return new ResponseEntity<ResultBean>(resultBean, HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasRole('USER')")
+//	@PreAuthorize("hasRole('USER')")
 	@GetMapping(value = "/username", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ResultBean> getUserByUsername(@RequestParam String username) {
 		ResultBean resultBean = null;
@@ -109,7 +108,7 @@ public class UserController {
 			JSONObject object = new JSONObject("json");
 			userService.save(new User(id, null, object.getString("password"), object.getString("fullname"),
 					object.getString("phone"), object.getString("email"),
-					new SimpleDateFormat("dd/MM/yyyy").parse(object.getString("birthday")), object.getString("address"),
+					new SimpleDateFormat("dd/MM/yyyy").parse(object.getString("birthday")), object.getString("address"),null,null,
 					null, null, null));
 			resultBean = new ResultBean(Constants.STATUS_OK, Constants.MSG_OK);
 		} catch (Exception e) {
@@ -126,7 +125,7 @@ public class UserController {
 			JSONObject object = new JSONObject("json");
 			userService.save(new User(null, object.getString("username"), object.getString("password"),
 					object.getString("fullname"), object.getString("phone"), object.getString("email"),
-					new SimpleDateFormat("dd/MM/yyyy").parse(object.getString("birthday")), object.getString("address"),
+					new SimpleDateFormat("dd/MM/yyyy").parse(object.getString("birthday")), object.getString("address"),null,null,
 					null, null, null));
 			resultBean = new ResultBean(Constants.STATUS_OK, Constants.MSG_OK);
 		} catch (Exception e) {
@@ -140,6 +139,7 @@ public class UserController {
 	public ResponseEntity<?> login(@RequestBody String json) throws Exception{
 		String jwt = null;
 		UserDetails user = null;
+		
 		System.out.println(json);
 		JSONObject object = new JSONObject("json");
 		Login login = new Login(object.getString("username"),object.getString("password"));
@@ -149,13 +149,13 @@ public class UserController {
 						new UsernamePasswordAuthenticationToken(login.getUserName(), login.getPassword()));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 				user = customUserDetailService.loadUserByUsername(login.getUserName());
-				jwt = tokenProvider.generateToken(authentication);
+				jwt = tokenProvider.generateToken(user);
 
 			} catch (Exception e) {
-				throw new Exception(e.getCause());
+				throw new Exception(e.getMessage());
 			}
 		}
-		return ResponseEntity.ok(new AuthenTokenResponse(jwt, user.getUsername(), user.getAuthorities()));
+		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
 	}
 
 	@PostMapping(value = "/resetPass/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })

@@ -38,6 +38,8 @@ public class User {
 	private String email;
 	private Date birthday;
 	private String address;
+	private Date lastPasswordResetDate;
+	private Date loginTime;
 	@JsonIgnore
 	@OneToMany(mappedBy = "cartUser",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Set<CartDetail> listCart;

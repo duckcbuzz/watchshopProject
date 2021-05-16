@@ -9,12 +9,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dut.udn.watchshop.bean.ResultBean;
 import dut.udn.watchshop.entity.CartDetail;
@@ -55,6 +52,9 @@ public class CartDetailController {
 	        	if (CartDetailService.isExist(object.getInt("id_user"),object.getInt("id_watch")) != null) {
 	        	cart = CartDetailService.findById(CartDetailService.isExist(object.getInt("id_user"),object.getInt("id_watch")) ).get();
 	        	cart.setQuantity(cart.getQuantity() +  object.getInt("quantity"));
+	        	if (cart.getQuantity() == 0) {
+	        		CartDetailService.deleteById(cart.getId());
+	        	}
 	        	} else {
 	        	cart = new CartDetail(null, userService.findById(object.getInt("id_user")).get(),watchService.findById(object.getInt("id_watch")).get(), object.getInt("quantity"));
 	        	}
@@ -78,18 +78,5 @@ public class CartDetailController {
 	        }
 	        return new ResponseEntity<ResultBean>(resultBean, HttpStatus.OK);
 	  };
-	  @PutMapping(value = "/{id}",produces = { MediaType.APPLICATION_JSON_VALUE })
-	  public ResponseEntity<ResultBean> updateCartDetail(@PathVariable Integer id,@RequestBody String json){
-		  ResultBean resultBean = null;
-	        try {
-	            CartDetail cart = CartDetailService.findById(id).get();
-	            CartDetail cartDetail = new ObjectMapper().readValue(json, CartDetail.class);
-	            cart.setQuantity(cartDetail.getQuantity());
-	            resultBean =  new ResultBean(Constants.STATUS_OK, Constants.MSG_OK);
-	        } catch (Exception e) {
-	            resultBean = new ResultBean(Constants.STATUS_BAD_REQUEST, e.getMessage());
-	            return new ResponseEntity<ResultBean>(resultBean, HttpStatus.BAD_REQUEST);
-	        }
-	        return new ResponseEntity<ResultBean>(resultBean, HttpStatus.OK);
-	  };
+	 
 }
