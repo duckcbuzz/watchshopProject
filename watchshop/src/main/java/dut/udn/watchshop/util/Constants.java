@@ -12,6 +12,8 @@ public class Constants {
     // Message response
     public static final String MSG_BAD_REQUEST = "400";
     public static final String MSG_OK = "Processed successfully";
+    public static final String MSG_SUCCESS = "success";
+    public static final String MSG_CANCEL = "cancel";
     public static final String MSG_DELETE_OK = "Delete successfully";
     
     public static final String TYPE_PRODUCT = "product";

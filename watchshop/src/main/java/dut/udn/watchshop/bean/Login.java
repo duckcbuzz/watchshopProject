@@ -22,6 +22,11 @@ public class Login {
     public void setPassword(String password) {
         this.password = password;
     }
+	public Login(String userName, String password) {
+		super();
+		this.userName = userName;
+		this.password = password;
+	}
     
 
 }

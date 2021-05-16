@@ -1,6 +1,6 @@
 package dut.udn.watchshop.entity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -28,7 +29,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "user")
 public class User {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String username;
 	private String password;
@@ -38,15 +39,19 @@ public class User {
 	private Date birthday;
 	private String address;
 	@JsonIgnore
-	@OneToMany(mappedBy = "cartUser",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "cartUser",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Set<CartDetail> listCart;
 	@JsonIgnore
-	@OneToMany(mappedBy = "orderUser",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "orderUser",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Set<Order> listOrder;
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "role_user", 
 	  joinColumns = @JoinColumn(name = "id_user",referencedColumnName="id"), 
 	  inverseJoinColumns = @JoinColumn(name = "id_role",referencedColumnName="id"))
-	private Set<Role> roles = new HashSet<>();	
+	private Set<Role> roles = new HashSet<>();
+	public User(Integer id) {
+		super();
+		this.id = id;
+	}
 	
 }

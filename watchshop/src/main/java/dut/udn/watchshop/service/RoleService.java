@@ -8,6 +8,6 @@ import dut.udn.watchshop.entity.Role;
 public interface RoleService {
 	List<Role> findAll();
 	Optional<Role> findById(int id);
-	void save (Role orderDetail);
+	void save (Role role);
 	void deleteById (int id);
 }

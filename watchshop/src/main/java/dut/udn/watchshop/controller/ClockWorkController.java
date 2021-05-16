@@ -1,5 +1,6 @@
 package dut.udn.watchshop.controller;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -9,11 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dut.udn.watchshop.bean.ResultBean;
 import dut.udn.watchshop.entity.ClockWork;
@@ -50,11 +49,11 @@ public class ClockWorkController {
 	      }
 	      return new ResponseEntity<ResultBean>(resultBean, HttpStatus.OK);
 	  };
-	  @PostMapping(value = "/add",produces = { MediaType.APPLICATION_JSON_VALUE })
-	  public ResponseEntity<ResultBean> addclockwork(@RequestParam("json") String json){
+	  @PostMapping(value = "/",produces = { MediaType.APPLICATION_JSON_VALUE })
+	  public ResponseEntity<ResultBean> addclockwork(@RequestBody String json){
 		  ResultBean resultBean = null;
 	        try {
-	            clockworkService.save(new ObjectMapper().readValue(json, ClockWork.class));
+	            clockworkService.save(new ClockWork(null, new JSONObject(json).getString("name"), null));
 	            resultBean = new ResultBean(Constants.STATUS_201, Constants.MSG_OK);
 	        } catch (Exception e) {
 	            resultBean = new ResultBean(Constants.STATUS_BAD_REQUEST, e.getMessage());
@@ -75,12 +74,10 @@ public class ClockWorkController {
 	        return new ResponseEntity<ResultBean>(resultBean, HttpStatus.OK);
 	  };
 	  @PutMapping(value = "/{id}",produces = { MediaType.APPLICATION_JSON_VALUE })
-	  public ResponseEntity<ResultBean> updateclockwork(@PathVariable Integer id,@RequestParam("json") String json){
+	  public ResponseEntity<ResultBean> updateclockwork(@PathVariable Integer id,@RequestBody String json){
 		  ResultBean resultBean = null;
 	        try {
-	            ClockWork clockwork = clockworkService.findById(id).get();
-	            ClockWork clockworkDetail = new ObjectMapper().readValue(json, ClockWork.class);
-	            clockwork.setName(clockworkDetail.getName());
+	        	clockworkService.save(new ClockWork(id, new JSONObject(json).getString("name"), null));
 	            resultBean =  new ResultBean(Constants.STATUS_OK, Constants.MSG_OK);
 	        } catch (Exception e) {
 	            resultBean = new ResultBean(Constants.STATUS_BAD_REQUEST, e.getMessage());

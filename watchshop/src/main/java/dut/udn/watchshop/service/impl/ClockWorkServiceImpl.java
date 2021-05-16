@@ -10,7 +10,7 @@ import dut.udn.watchshop.entity.ClockWork;
 import dut.udn.watchshop.repository.ClockWorkRepository;
 import dut.udn.watchshop.service.ClockWorkService;
 
-@Service
+@Service	
 public class ClockWorkServiceImpl implements ClockWorkService{
 	@Autowired
 	private ClockWorkRepository clockWorkRepository;

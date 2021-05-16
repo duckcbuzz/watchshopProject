@@ -1,11 +1,13 @@
 package dut.udn.watchshop.entity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,7 +27,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "`order`")
 public class Order {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	@ManyToOne
 	@JoinColumn(name = "id_user")
@@ -36,7 +38,6 @@ public class Order {
 	private String receiver;
 	private String note;
 	@JsonIgnore
-	@OneToMany(mappedBy = "orderInDetail",fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "orderInDetail",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Set<OrderDetail> listItem;
-	
 }

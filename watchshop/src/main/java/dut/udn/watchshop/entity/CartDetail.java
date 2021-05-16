@@ -2,12 +2,13 @@ package dut.udn.watchshop.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,16 +21,15 @@ import lombok.NoArgsConstructor;
 @Table(name = "cart_detail")
 public class CartDetail {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	@JsonBackReference 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "id_user")
 	private User cartUser;
-	@JsonBackReference 
 	@ManyToOne
 	@JoinColumn(name = "id_watch")
 	private Watch itemCart;
 	private Integer quantity;
-
+	
 }

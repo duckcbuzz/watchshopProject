@@ -10,4 +10,7 @@ public interface UserService {
 	Optional<User> findById(int id);
 	void save (User user);
 	void deleteById (int id);
+	Optional<User> findByUsername(String username);
+    public boolean isExitsUserName(String userName) throws Exception;
+    void resetPass(String email) throws Exception;
 }
