@@ -1,5 +1,0 @@
-package dut.udn.watchshop.service;
-
-public interface WatchService {
-
-}

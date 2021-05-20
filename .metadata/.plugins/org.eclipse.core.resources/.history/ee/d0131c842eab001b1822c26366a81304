@@ -1,7 +1,0 @@
-package dut.udn.watchshop.service.impl;
-
-import dut.udn.watchshop.service.ClockWorkService;
-
-public class ColorWorkServiceImpl implements ClockWorkService{
-
-}
