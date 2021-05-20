@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"dut.udn.watchshop.entity","l":"Product"}];updateSearchResults();
